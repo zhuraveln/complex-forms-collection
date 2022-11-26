@@ -7,6 +7,7 @@ export interface IUserFields {
   birthday: string
   email: string
   password: string
+  passwordConfirmation?: string
 }
 
 /** Валидация полей для useForm */
@@ -30,5 +31,9 @@ export const UserSchema = yup.object().shape({
     .matches(/[a-z]+/, 'One lowercase character')
     .matches(/[A-Z]+/, 'One uppercase character')
     .matches(/[@$!%*#?&]+/, 'One special character')
-    .matches(/\d+/, 'One number')
+    .matches(/\d+/, 'One number'),
+  passwordConfirmation: yup
+    .string()
+    .required('Confirm your password')
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
 })

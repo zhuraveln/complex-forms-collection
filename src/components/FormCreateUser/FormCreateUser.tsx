@@ -2,8 +2,8 @@ import React from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import dayjs, { Dayjs } from 'dayjs'
-import 'dayjs/locale/ru'
+// import dayjs, { Dayjs } from 'dayjs'
+// import 'dayjs/locale/ru'
 
 import {
   Button,
@@ -31,12 +31,14 @@ const FormCreateUser: React.FC = () => {
       lastName: 'Zhuravel',
       birthday: '1996-04-20',
       email: 'zhuravel.nikita@gmail.com',
-      password: '214Fsdg%35'
+      password: '214Fsdg#35',
+      passwordConfirmation: '214Fsdg#35'
     }
   })
 
   /** onSubmit for form */
   const onSubmit: SubmitHandler<IUserFields> = data => {
+    delete data.passwordConfirmation
     console.log(data)
     reset()
   }
@@ -87,6 +89,27 @@ const FormCreateUser: React.FC = () => {
               label='Password'
               error={!!errors.password}
               helperText={errors.password ? errors.password.message : ''}
+            />
+          )}
+        />
+
+        {/* Field for confirm password */}
+        <Controller
+          name='passwordConfirmation'
+          control={control}
+          shouldUnregister
+          defaultValue=''
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type='password'
+              label='Confirm Password'
+              error={!!errors.passwordConfirmation}
+              helperText={
+                errors.passwordConfirmation
+                  ? errors.passwordConfirmation.message
+                  : ''
+              }
             />
           )}
         />
