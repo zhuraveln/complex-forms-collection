@@ -28,6 +28,7 @@ export const UserSchema = yup.object().shape({
     .string()
     .required('Password is a required field')
     .min(8, 'Password must be 8 characters or more')
+    .max(32, 'Password must be 32 characters or less')
     .matches(/[a-z]+/, 'One lowercase character')
     .matches(/[A-Z]+/, 'One uppercase character')
     .matches(/[@$!%*#?&]+/, 'One special character')

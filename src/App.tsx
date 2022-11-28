@@ -1,10 +1,16 @@
 import React from 'react'
-import FormCreateTask from './components/FormCreateUser/FormCreateUser'
+import { Routes, Route } from 'react-router-dom'
+
+import FormCreateUser from './components/FormCreateUser/FormCreateUser'
 import NavBar from './components/NavBar'
 
-import styles from './styles/App.module.scss'
+import Step1 from './components/CreateUser/Step1/Step1'
+import Step2 from './components/CreateUser/Step2/Step2'
 
-function App() {
+import styles from './styles/App.module.scss'
+import Step3 from './components/CreateUser/Step3/Step3'
+
+const App: React.FC = () => {
   return (
     <>
       {/* Navigation Bar */}
@@ -12,15 +18,55 @@ function App() {
         <NavBar />
       </div>
 
-      {/* Wrapper for form and result */}
-      <div className={styles.wrapper}>
-        {/* Form for create user*/}
-        <div className={styles.form}>
-          <FormCreateTask />
-        </div>
+      {/* Basic content */}
+      <div className={styles.content}>
+        <Routes>
+          {/* Form for create user*/}
+          <Route
+            path='/'
+            element={
+              <div className={styles.form}>
+                <FormCreateUser />
+              </div>
+            }
+          />
 
-        {/* Result */}
-        <div className={styles.result}></div>
+          {/* Step 1 */}
+          <Route
+            path='/step1'
+            element={
+              <div className={styles.form}>
+                <Step1 />
+              </div>
+            }
+          />
+
+          {/* Step 2 */}
+          <Route
+            path='/step2'
+            element={
+              <div className={styles.form}>
+                <Step2 />
+              </div>
+            }
+          />
+
+          {/* Step 3 */}
+          <Route
+            path='/step3'
+            element={
+              <div className={styles.form}>
+                <Step3 />
+              </div>
+            }
+          />
+          {/* Result */}
+          <Route
+            path='/result'
+            element={<div className={styles.result}></div>}
+          />
+          <Route path='*' element={<h1>Not found</h1>} />
+        </Routes>
       </div>
     </>
   )

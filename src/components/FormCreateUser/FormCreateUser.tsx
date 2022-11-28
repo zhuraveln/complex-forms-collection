@@ -24,7 +24,7 @@ const FormCreateUser: React.FC = () => {
     formState: { errors },
     reset
   } = useForm<IUserFields>({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: yupResolver(UserSchema),
     defaultValues: {
       firstName: 'Nikita',
@@ -45,7 +45,7 @@ const FormCreateUser: React.FC = () => {
 
   return (
     // Form for user's information
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <Stack spacing={1} mb={4}>
         {/* Field for First name */}
         <Controller
@@ -97,7 +97,6 @@ const FormCreateUser: React.FC = () => {
         <Controller
           name='passwordConfirmation'
           control={control}
-          shouldUnregister
           defaultValue=''
           render={({ field }) => (
             <TextField
